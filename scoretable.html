@@ -1,0 +1,55 @@
+<head>
+	<title>Score table</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+</head>
+<body>
+	<main>
+
+	{{#if currentUser}}
+		<h1>Score table</h1>
+		{{> players}}
+	{{else}}
+		<h1>Please login or register</h1>
+	{{/if}}
+
+	<div class="login">
+		{{> loginButtons}}
+	</div>
+
+	</main>
+
+</body>
+
+
+<template name="players">
+	<ul>
+		{{#each getPlayers}}
+			<li class="player {{isHighlighted}}">
+				{{name}}: {{score}}
+			</li>
+		{{/each}}
+	</ul>
+
+	{{#if displaySelected}}
+		<div class="selectedPlayer">
+			<h3>Selected player: {{displaySelected.name}}</h3>
+			<input type="button" class="givePoints" value="Give 5 points">
+			<input type="button" class="takePoints" value="Take 5 points">
+			<br>
+			<input type="button" class="delete" value="Delete Player">
+		</div>
+	{{/if}}
+
+	{{#if currentUser}}
+		{{> addPlayerTemplate}}
+	{{/if}}
+</template>
+
+<template name="addPlayerTemplate">
+	<form name="addPlayerForm">
+		<label for="addPlayerForm">Add New Player</label>
+		<input type="text" name="newPlayerName" placeholder="Player Name">
+		<input type="text" name="newPlayerScore" placeholder="Player Score">
+		<input type="submit" class="addPlayer" value="Add Player">
+	</form>
+</template>
